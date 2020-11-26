@@ -71,13 +71,13 @@ class MainActivity : AppCompatActivity() {
         // ================================================
         // 내용물이 없는 mutableList 선언 및 초기화, null 값이 되지 않도록 하기 위한 조치
 
-        memoViewModel = ViewModelProvider(this).get(MemoViewModel::class.java)
-        memoViewModel.selectAll()?.observe(this, { voList ->
-            if (voList != null) {
-                memoAdapter.setList(voList)
-            }
-            memoAdapter.notifyDataSetChanged()
-        })
+//        memoViewModel = ViewModelProvider(this).get(MemoViewModel::class.java)
+//        memoViewModel.selectAll()?.observe(this, { voList ->
+//            if (voList != null) {
+//                memoAdapter.setList(voList)
+//            }
+//            memoAdapter.notifyDataSetChanged()
+//        })
 //        memoViewModel
 //            .selectAll()?.observe(this, { voList ->
 //                if (voList)
