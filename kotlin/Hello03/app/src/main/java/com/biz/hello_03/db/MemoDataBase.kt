@@ -10,8 +10,7 @@ import java.util.concurrent.Executors
 
 @Database(entities = [MemoVO::class], version = 1, exportSchema = false)
 abstract class MemoDataBase : RoomDatabase() {
-
-    abstract val memoDao: MemoDao
+    abstract fun getMemoDao(): MemoDao?
 
     // static 메서드
     companion object {
@@ -21,16 +20,16 @@ abstract class MemoDataBase : RoomDatabase() {
             NUMBER_THREADS
         )
 
+        @Synchronized
         fun getInstance(context: Context): MemoDataBase? {
             if (INSTANCE == null) {
                 // Instance 생성, DB 객체생성
-                synchronized(MemoDataBase::class.java) {
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        MemoDataBase::class.java,
-                        "memo_database"
-                    ).build()
-                }
+
+                INSTANCE = Room.databaseBuilder(
+                    context.applicationContext,
+                    MemoDataBase::class.java,
+                    "memo_database"
+                ).allowMainThreadQueries().build()
             }
             return INSTANCE
         }

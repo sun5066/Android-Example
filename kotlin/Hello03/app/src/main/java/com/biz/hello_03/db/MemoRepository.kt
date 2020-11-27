@@ -8,23 +8,21 @@ import com.biz.hello_03.model.MemoVO
 // 데이터베이스를 한번만 생성하기
 class MemoRepository(app: Application) {
     private lateinit var memoDao: MemoDao
-    private lateinit var memoList: LiveData<MutableList<MemoVO>>
 
     init {
         // db 객체가 null 인경우
         // table 생성
         var db: MemoDataBase? = MemoDataBase.getInstance(app)
         if (db != null) {
-            memoDao = db.memoDao
+            memoDao = db.getMemoDao()!!
         }
-        memoList = memoDao.selectAll()
     }
 
     fun selectAll(): LiveData<MutableList<MemoVO>> {
-        return this.memoList
+        return memoDao.selectAll()
     }
 
-    fun findById(id: String): MemoVO {
+    fun findById(id: Long): MemoVO {
         return memoDao.findById(id)
     }
 
@@ -36,5 +34,9 @@ class MemoRepository(app: Application) {
 
     fun delete(memoVO: MemoVO) {
         memoDao.delete(memoVO.id)
+    }
+
+    fun delete(id: Long) {
+        memoDao.delete(id)
     }
 }

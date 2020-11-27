@@ -8,17 +8,20 @@ import com.biz.hello_03.model.MemoVO
 
 class MemoViewModel(app: Application) : AndroidViewModel(app) {
     private val memoRep: MemoRepository = MemoRepository(app)
-    private lateinit var memoList: LiveData<MutableList<MemoVO>>
-
-    init {
-        memoList = memoRep.selectAll()
-    }
 
     fun selectAll(): LiveData<MutableList<MemoVO>> {
-        return memoList
+        return memoRep.selectAll()
+    }
+
+    fun findById(id: Long): MemoVO {
+        return memoRep.findById(id)
     }
 
     fun save(memoVO: MemoVO) {
         memoRep.save(memoVO)
+    }
+
+    fun delete(id: Long) {
+        memoRep.delete(id)
     }
 }

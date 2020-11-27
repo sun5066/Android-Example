@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.biz.hello_03.model.MemoVO
 
+@Dao
 interface MemoDao {
     // LiveData : Spring JPA 의 Optional 역할
     // null 연산 에러 방지
@@ -11,7 +12,7 @@ interface MemoDao {
     open fun selectAll(): LiveData<MutableList<MemoVO>>
 
     @Query("SELECT * FROM tbl_memo WHERE id= :id")
-    open fun findById(id: String): MemoVO
+    open fun findById(id: Long): MemoVO
 
     // OnConflictStrategy.REPLACE
     // 새로운 데이터라면 Insert 수행하고

@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import github.sun5066.R
 import github.sun5066.model.CovidVO
 
-class MemoViewAdapter(var context: Context, var covidList: MutableList<CovidVO>) :
-    RecyclerView.Adapter<MemoViewAdapter.CovidHolder>() {
+class CovidViewAdapter(var context: Context, var covidList: MutableList<CovidVO>) :
+    RecyclerView.Adapter<CovidViewAdapter.CovidHolder>() {
 
     fun setList(covidList: MutableList<CovidVO>) {
         this.covidList = covidList
@@ -29,10 +29,11 @@ class MemoViewAdapter(var context: Context, var covidList: MutableList<CovidVO>)
     }
 
     override fun onBindViewHolder(holder: CovidHolder, position: Int) {
-        holder.country.text = covidList[position]?
+        holder.country.text = covidList[position]?.country
+        holder.state.text = covidList[position]?.state
     }
 
     override fun getItemCount(): Int {
-
+        return covidList.size
     }
 }
