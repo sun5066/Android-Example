@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity() {
 
         btnAdd.setOnClickListener { view ->
             this.todoAdd(view)
-            Log.d("save", "onCreate: $view")
         }
 
         var todoList: MutableList<TodoVO> = mutableListOf()
@@ -70,7 +69,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun todoAdd(view: View) {
-        val btn = view as Button
         val txtTodo = txtTodoInput.text.toString()
 
         if (txtTodo.isEmpty()) {
@@ -81,10 +79,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         var todoVO: TodoVO = TodoVO()
-        if (btn.text == "변경") {
-            todoVO = btn.tag as TodoVO
+        if (btnAdd.text == "변경") {
+            todoVO = btnAdd.tag as TodoVO
             todoVO.todo = txtTodo
-            btn.text = "추가"
+            btnAdd.text = "추가"
         } else {
             val sd = SimpleDateFormat("yyyy-MM-dd")
             val st = SimpleDateFormat("HH:mm:ss")

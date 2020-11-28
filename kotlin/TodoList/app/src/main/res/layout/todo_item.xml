@@ -19,13 +19,16 @@
             android:id="@+id/txt_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:text="2020-11-26" />
 
         <TextView
             android:id="@+id/txt_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="3"
             android:text="11:20:00" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -33,17 +36,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="2px"
+        android:background="@drawable/border"
         android:orientation="horizontal"
         android:padding="6px"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/data_time_box">
 
+        <Button
+            android:id="@+id/btnComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✓"
+            android:textSize="20sp" />
+
         <TextView
             android:id="@+id/txt_todo_item"
-            android:layout_width="350dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
+            android:layout_weight="1"
             android:padding="6dp"
             android:text="할 일"
             android:textSize="20sp" />
@@ -52,6 +64,7 @@
             android:id="@+id/btn_todo_item_delete"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.1"
             android:text="x" />
     </LinearLayout>
 
