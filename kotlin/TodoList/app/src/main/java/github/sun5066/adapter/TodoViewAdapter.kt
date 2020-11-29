@@ -1,5 +1,6 @@
 package github.sun5066.adapter
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,8 @@ import github.sun5066.model.TodoVO
 class TodoViewAdapter(
     var todoList: MutableList<TodoVO>,
     var onDelete: (Any) -> Unit,
-    var onUpdate: (Any) -> Unit
+    var onUpdate: (Any) -> Unit,
+    var onComplete: (Any) -> Unit
 ) : RecyclerView.Adapter<TodoViewAdapter.TodoHolder?>() {
 
     fun setList(todoList: MutableList<TodoVO>) {
@@ -31,9 +33,21 @@ class TodoViewAdapter(
         holder.txtTime.text = todoList[position]?.time.toString()
         holder.todo.text = todoList[position]?.todo.toString()
 
+        when (todoList[position].isComplete) {
+            true -> {
+                holder.checkComplete.text = "✓"
+                holder.todo.paintFlags = holder.todo.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            }
+            else -> {
+                holder.checkComplete.text = "○"
+                holder.todo.paintFlags = 0
+            }
+        }
+
         val id: Long = todoList[position].id.toLong()
         holder.btnDelete.setOnClickListener(View.OnClickListener { onDelete(id) })
         holder.todo.setOnClickListener(View.OnClickListener { onUpdate(id) })
+        holder.checkComplete.setOnClickListener(View.OnClickListener { onComplete(id) })
     }
 
     override fun getItemCount(): Int {
@@ -45,5 +59,6 @@ class TodoViewAdapter(
         var txtTime: TextView = itemView.findViewById(R.id.txt_time)
         var todo: TextView = itemView.findViewById(R.id.txt_todo_item)
         val btnDelete: Button = itemView.findViewById(R.id.btn_todo_item_delete)
+        val checkComplete: TextView = itemView.findViewById(R.id.checkComplete)
     }
 }

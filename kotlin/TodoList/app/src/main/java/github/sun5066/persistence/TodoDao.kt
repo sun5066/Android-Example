@@ -10,15 +10,15 @@ import github.sun5066.model.TodoVO
 @Dao
 interface TodoDao {
 
-    @Query("SELECT * FROM tbl_todo")
+    @Query("SELECT * FROM tbl_todos")
     open fun selectAll(): LiveData<MutableList<TodoVO>>
 
-    @Query("SELECT * FROM tbl_todo WHERE id= :id")
+    @Query("SELECT * FROM tbl_todos WHERE id= :id")
     open fun findById(id: Long): TodoVO
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     open fun save(todoVO: TodoVO)
 
-    @Query("DELETE FROM tbl_todo WHERE id= :id")
+    @Query("DELETE FROM tbl_todos WHERE id= :id")
     open fun delete(id: Long)
 }

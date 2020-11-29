@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -49,7 +50,8 @@ class MainActivity : AppCompatActivity() {
         todoViewAdapter = TodoViewAdapter(
             todoList,
             onDelete = { id -> todoViewModel.delete(id as Long) },
-            onUpdate = { id -> this.todoUpdate(id as Long) }
+            onUpdate = { id -> this.todoUpdate(id as Long) },
+            onComplete = { id -> this.todoComplete(id as Long) }
         )
 
         todoViewModel =
@@ -101,5 +103,11 @@ class MainActivity : AppCompatActivity() {
         txtTodoInput?.setText(todoVO.todo.toString())
         btnAdd.text = "변경"
         btnAdd.tag = todoVO
+    }
+
+    fun todoComplete(id: Long) {
+        val todoVO: TodoVO = todoViewModel.findById(id)
+        todoVO.isComplete = !todoVO.isComplete
+        todoViewModel.save(todoVO)
     }
 }

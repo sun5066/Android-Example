@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "tbl_todo")
+@Entity(tableName = "tbl_todos")
 class TodoVO {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -18,4 +18,7 @@ class TodoVO {
 
     @ColumnInfo(name = "todo")
     public var todo: String = ""
+
+    @ColumnInfo(name = "isComplete")
+    public var isComplete: Boolean = false
 }
