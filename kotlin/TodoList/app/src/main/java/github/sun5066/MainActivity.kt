@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -100,6 +101,11 @@ class MainActivity : AppCompatActivity() {
 
     fun todoUpdate(id: Long) {
         val todoVO: TodoVO = todoViewModel.findById(id)
+
+        if (todoVO.isComplete) {
+            Toast.makeText(this, "완료한 업무는 수정이 불가능합니다.", Toast.LENGTH_SHORT).show()
+            return
+        }
         txtTodoInput?.setText(todoVO.todo.toString())
         btnAdd.text = "변경"
         btnAdd.tag = todoVO
