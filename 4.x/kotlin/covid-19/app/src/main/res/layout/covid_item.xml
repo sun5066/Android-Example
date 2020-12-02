@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/covid_country_box"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="2px"
+        android:orientation="vertical"
+        android:padding="6px"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <TextView
+            android:id="@+id/txt_country_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="광주"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="2px"
+        android:orientation="vertical"
+        android:padding="6px"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/covid_country_box">
+
+        <TextView
+            android:id="@+id/txt_new_case"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="신규 확진자 수 : 5" />
+
+        <TextView
+            android:id="@+id/txt_total_case"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="완치자 수 : 5" />
+
+        <TextView
+            android:id="@+id/txt_death"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="사망자 수 : 5" />
+
+        <TextView
+            android:id="@+id/txt_percent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="발생률 : 5" />
+
+        <TextView
+            android:id="@+id/txt_new_f_case"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="전일대비증감-해외유입 : 5" />
+
+        <TextView
+            android:id="@+id/txt_new_c_case"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="전일대비증감-해외유입 : 5" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
