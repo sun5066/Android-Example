@@ -2,28 +2,87 @@ package github.sun5066.covid19.model
 
 import com.google.gson.annotations.SerializedName
 
+data class StateVO(
+    @SerializedName("korea")
+    var korea: CovidVO,
+
+    @SerializedName("seoul")
+    var seoul: CovidVO,
+
+    @SerializedName("busan")
+    var busan: CovidVO,
+
+    @SerializedName("daegu")
+    var daegu: CovidVO,
+
+    @SerializedName("incheon")
+    var incheon: CovidVO,
+
+    @SerializedName("gwangju")
+    var gwangju: CovidVO,
+
+    @SerializedName("daejeon")
+    var daejeon: CovidVO,
+
+    @SerializedName("ulsan")
+    var ulsan: CovidVO,
+
+    @SerializedName("sejong")
+    var sejong: CovidVO,
+
+    @SerializedName("gyeonggi")
+    var gyeonggi: CovidVO,
+
+    @SerializedName("gangwon")
+    var gangwon: CovidVO,
+
+    @SerializedName("chungbuk")
+    var chungbuk: CovidVO,
+
+    @SerializedName("chungnam")
+    var chungnam: CovidVO,
+
+    @SerializedName("jeonbuk")
+    var jeonbuk: CovidVO,
+
+    @SerializedName("jeonnam")
+    var jeonnam: CovidVO,
+
+    @SerializedName("gyeongbuk")
+    var gyeongbuk: CovidVO,
+
+    @SerializedName("gyeongnam")
+    var gyeongnam: CovidVO,
+
+    @SerializedName("jeju")
+    var jeju: CovidVO,
+
+    @SerializedName("quarantine")
+    var quarantine: CovidVO
+)
+
 data class CovidVO(
     @SerializedName("countryName")
-    var countryName: String?,
+    var countryName: String,
 
     @SerializedName("newCase")
-    var newCase: String?,
+    var newCase: String,
 
     @SerializedName("totalCase")
-    var totalCase: String?,
+    var totalCase: String,
 
     @SerializedName("recovered")
-    var recovered: String?,
+    var recovered: String,
 
     @SerializedName("death")
-    var death: String?,
+    var death: String,
 
-    @SerializedName("percent")
-    var percent: String?,
+    @SerializedName("percentage")
+    var percentage: String,
 
-    @SerializedName("newFCase")
-    var newFCase: String?,
+    @SerializedName("newFcase")
+    var newFCase: String,
 
-    @SerializedName("newCCase")
-    var newCCase: String?
+    @SerializedName("newCcase")
+    var newCCase: String
 )

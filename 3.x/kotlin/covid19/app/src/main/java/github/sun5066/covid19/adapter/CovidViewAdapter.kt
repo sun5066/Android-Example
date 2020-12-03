@@ -28,13 +28,13 @@ class CovidViewAdapter(var covidList: MutableList<CovidVO>) :
 
     override fun onBindViewHolder(holder: CovidHolder, position: Int) {
         holder.txtCountry.text = covidList[position]?.countryName ?: "null"
-        holder.txtRecovered.text = covidList[position]?.recovered ?: "null"
-        holder.txtNewCase.text = covidList[position]?.newCase ?: "null"
-        holder.txtTotalCase.text = covidList[position]?.totalCase ?: "null"
-        holder.txtDeath.text = covidList[position]?.death ?: "null"
-        holder.txtPercent.text = covidList[position]?.percent ?: "null"
-        holder.txtNewFCase.text = covidList[position]?.newFCase ?: "null"
-        holder.txtNewCCase.text = covidList[position]?.newCCase ?: "null"
+        holder.txtNewCase.text = "신규확진자 수 : ${covidList[position]?.newCase}" ?: "null"
+        holder.txtTotalCase.text = "확진자 수 : ${covidList[position]?.totalCase}" ?: "null"
+        holder.txtRecovered.text = "왼치자 수 : ${covidList[position]?.recovered}" ?: "null"
+        holder.txtDeath.text = "사망자 수 : ${covidList[position]?.death}" ?: "null"
+        holder.txtPercent.text = "발생률 : ${covidList[position]?.percentage}%" ?: "null"
+        holder.txtNewFCase.text = "전일대비증감-해외유입 : ${covidList[position]?.newFCase}" ?: "null"
+        holder.txtNewCCase.text = "전일대비증감-지역발생 : ${covidList[position]?.newCCase}" ?: "null"
     }
 
     class CovidHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
