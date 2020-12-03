@@ -18,7 +18,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var covidViewAdapter: CovidViewAdapter
     private lateinit var covidList: MutableList<CovidVO>
 
