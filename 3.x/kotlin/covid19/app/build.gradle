@@ -27,7 +27,6 @@ android {
             targetCompatibility JavaVersion.VERSION_1_8
         }
     }
-
 }
 
 dependencies {
@@ -45,5 +44,4 @@ dependencies {
     api "com.google.code.gson:gson:2.8.5"
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit_version"
-
 }

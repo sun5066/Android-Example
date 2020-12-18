@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.View
 
 class MyService : Service() {
-
     inner class MyBinder : Binder() {
         fun getService(): MyService {
             return this@MyService

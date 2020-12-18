@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     fun serviceStop(view: View) {
         val intent = Intent(this, MyService::class.java)
+        intent.action = MyService.ACTION_STOP
         stopService(intent)
     }
 

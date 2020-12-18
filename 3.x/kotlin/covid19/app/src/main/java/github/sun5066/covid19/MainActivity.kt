@@ -3,12 +3,11 @@ package github.sun5066.covid19
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import github.sun5066.covid19.adapter.CovidViewAdapter
-import github.sun5066.covid19.component.CovidApi
-import github.sun5066.covid19.component.CovidService
+import github.sun5066.covid19.service.CovidApi
+import github.sun5066.covid19.service.CovidService
 import github.sun5066.covid19.model.CovidVO
 import github.sun5066.covid19.model.StateVO
 import retrofit2.Call

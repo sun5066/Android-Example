@@ -4,6 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".SubActivity">
+
+    <TextView
+        android:id="@+id/txt_sub_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sub_activity"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edit_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/edit_txt_hint"
+        app:layout_constraintTop_toBottomOf="@id/txt_sub_activity" />
+
+    <Button
+        android:id="@+id/btn_close_sub_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_close_sub_activity"
+        app:layout_constraintTop_toBottomOf="@id/edit_message" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

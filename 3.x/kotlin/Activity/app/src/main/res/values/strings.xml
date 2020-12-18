@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Activity</string>
+    <string name="main_activity">메인 액티비티</string>
+    <string name="sub_activity">서브 액티비티</string>
+    <string name="btn_goto_sub_activity">서브 액티비티 실행</string>
+    <string name="edit_txt_hint">전달할 메시지를 입력하세요</string>
+    <string name="btn_close_sub_activity">액티비티 닫기</string>
 </resources>

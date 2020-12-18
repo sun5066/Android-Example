@@ -1,4 +1,4 @@
-package github.sun5066.covid19.component
+package github.sun5066.covid19.service
 
 import github.sun5066.covid19.model.StateVO
 import retrofit2.Call
