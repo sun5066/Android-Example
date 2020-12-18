@@ -1,0 +1,2 @@
+rootProject.name='todoV1'
+include ':app'

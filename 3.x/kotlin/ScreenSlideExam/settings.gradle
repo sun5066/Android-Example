@@ -1,0 +1,2 @@
+rootProject.name='ScreenSlideExam'
+include ':app'

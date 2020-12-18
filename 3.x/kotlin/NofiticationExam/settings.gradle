@@ -1,0 +1,2 @@
+rootProject.name='NofiticationExam'
+include ':app'
