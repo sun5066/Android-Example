@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "896503749701",
+    "project_id": "fir-chatexample-4d691",
+    "storage_bucket": "fir-chatexample-4d691.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896503749701:android:011170ae7449758e23d72c",
+        "android_client_info": {
+          "package_name": "github.sun5066.firebasechatexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896503749701-kts1qh3236946v2mcjrb3g1ku9pfvibu.apps.googleusercontent.com",
+          "client_type": 3,
+          "android_info": {
+            "package_name": "github.sun5066.firebasechatexample",
+            "certificate_hash": "9252dd0053354c8d744ea05fd81943e186e78afc"
+          }
+        },
+        {
+          "client_id": "896503749701-sji3k6f1i4vva6kk5mvot2hdq95a12lc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjklg8JtdgThjRLGyQKiGabgiQwEvN_vM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896503749701-sji3k6f1i4vva6kk5mvot2hdq95a12lc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
