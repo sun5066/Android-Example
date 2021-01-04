@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "896503749701",
+    "firebase_url": "https://fir-chatexample-4d691-default-rtdb.firebaseio.com",
     "project_id": "fir-chatexample-4d691",
     "storage_bucket": "fir-chatexample-4d691.appspot.com"
   },
@@ -15,7 +16,7 @@
       "oauth_client": [
         {
           "client_id": "896503749701-kts1qh3236946v2mcjrb3g1ku9pfvibu.apps.googleusercontent.com",
-          "client_type": 3,
+          "client_type": 1,
           "android_info": {
             "package_name": "github.sun5066.firebasechatexample",
             "certificate_hash": "9252dd0053354c8d744ea05fd81943e186e78afc"

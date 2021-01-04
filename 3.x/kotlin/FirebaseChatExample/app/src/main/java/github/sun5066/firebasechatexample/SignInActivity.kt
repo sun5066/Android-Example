@@ -2,22 +2,32 @@ package github.sun5066.firebasechatexample
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.SignInButton
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.util.JsonUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import org.json.JSONObject
 
 
 class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener,
     View.OnClickListener {
+
+    companion object {
+        val TAG = "SignInActivity"
+    }
 
     private val RC_SIGN_IN: Int = 1000
     private lateinit var mFirebaseAuth: FirebaseAuth
@@ -38,9 +48,7 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
             .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
             .build()
 
-        findViewById<Button>(
-            R.id.btn_sign_in
-        ).setOnClickListener(this)
+        findViewById<SignInButton>(R.id.btn_sign_in).setOnClickListener(this)
     }
 
     override fun onConnectionFailed(p0: ConnectionResult) {
@@ -56,9 +64,11 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
 
         if (requestCode == RC_SIGN_IN) {
             val result: GoogleSignInResult? = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
+            Log.d(TAG, "${result!!.signInAccount}")
 
             if (result!!.isSuccess) {
                 val account: GoogleSignInAccount? = result.signInAccount
+//                val account = GoogleSignIn.getSignedInAccountFromIntent(data).getResult(ApiException::class.java)
                 this.firebaseAuthWithGoogle(account)
             } else {
                 Toast.makeText(this, "Google Sign-In failed", Toast.LENGTH_SHORT).show()
@@ -69,18 +79,11 @@ class SignInActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLi
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
         val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
         mFirebaseAuth.signInWithCredential(credential)
-            .addOnCompleteListener(
-                this
-            ) { task ->
-
-                // 인증에 성공하면 MainActivity 로 이동, 실패하면 에러 메시지 표시
+            .addOnCompleteListener(this) { task ->
                 if (!task.isSuccessful) {
-                    Toast.makeText(
-                        this@SignInActivity, "Authentication failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
                 } else {
-                    startActivity(Intent(this@SignInActivity, MainActivity::class.java))
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }
             }
