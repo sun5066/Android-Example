@@ -1,7 +1,10 @@
 package github.sun5066.socketclient.network
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonParseException
 import com.google.gson.reflect.TypeToken
 import github.sun5066.socketclient.TAG
 import github.sun5066.socketclient.model.ChatData
@@ -21,8 +24,8 @@ class ChatSocketHandler(private val _ip: String, private val _port: Int) {
         TypeToken<MutableList<ChatData>>() {}
 
     private val gson = GsonBuilder().create()
-    val chatList = mutableListOf<ChatData>()
-
+    private lateinit var chatList: MutableList<ChatData>
+    private lateinit var chatData: LiveData<MutableList<ChatData>>
     /**********************************************************************************************/
 
     fun run() {
@@ -34,10 +37,21 @@ class ChatSocketHandler(private val _ip: String, private val _port: Int) {
 
     fun read() {
         while (mIsConnected) {
-            val chatData = gson.fromJson(mReader.nextLine(), ChatData::class.java)
-            chatList.add(chatData)
-
-            Log.d(TAG, chatList.toString())
+            try {
+                chatList = gson.fromJson<MutableList<ChatData>>(
+                    mReader.nextLine().toString(),
+                    listType.type
+                )
+                val chatData: LiveData<MutableList<ChatData>>
+                chatData = MutableLiveData<MutableList<ChatData>>()
+                chatData.value = chatList
+                this.chatData = chatData
+                Log.d(TAG, "${chatList.toString()}")
+            } catch (ex: JsonParseException) {
+                Log.d(TAG, "Json 변환 예외 발생!")
+            } finally {
+                Log.d(TAG, mReader.nextLine())
+            }
         }
     }
 
@@ -54,9 +68,8 @@ class ChatSocketHandler(private val _ip: String, private val _port: Int) {
         }
     }
 
-    fun getList() {
-        if (mIsConnected) {
-            this.sendMessage("getList")
-        }
+    fun getList(): LiveData<MutableList<ChatData>> {
+        Log.d("TAGAAAA", chatData.toString())
+        return chatData
     }
 }

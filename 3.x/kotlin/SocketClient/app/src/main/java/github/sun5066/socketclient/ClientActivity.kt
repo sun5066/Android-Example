@@ -8,6 +8,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import github.sun5066.socketclient.adapter.ChatRecyclerAdapter
+import github.sun5066.socketclient.adapter.ChatViewModel
+import github.sun5066.socketclient.model.ChatData
 import github.sun5066.socketclient.network.ChatSocketHandler
 import kotlin.concurrent.thread
 
@@ -17,7 +24,9 @@ class ClientActivity : AppCompatActivity(), View.OnClickListener {
     /****************************************************************/
     private lateinit var mTxtSend: EditText
     private lateinit var mChatSocketHandler: ChatSocketHandler
-
+    private lateinit var mChatRecyclerAdapter: ChatRecyclerAdapter
+    private lateinit var mChatViewModel: ChatViewModel
+    private lateinit var mRecyclerView: RecyclerView
     /****************************************************************/
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +49,21 @@ class ClientActivity : AppCompatActivity(), View.OnClickListener {
 
         mTxtSend = findViewById(R.id.txt_send)
         findViewById<Button>(R.id.btn_send).setOnClickListener(this)
+
+        mRecyclerView = findViewById(R.id.recycler_view)
+        val chatList = mutableListOf<ChatData>()
+        mChatRecyclerAdapter = ChatRecyclerAdapter(chatList)
+
+        mChatViewModel = ChatViewModel(mChatSocketHandler)
+        mChatViewModel.selectAll().observe(this, Observer {
+            it?.let { mChatRecyclerAdapter.setList(it) }
+            mChatRecyclerAdapter.notifyDataSetChanged()
+        })
+
+        mRecyclerView.adapter = mChatRecyclerAdapter
+
+        val layoutManager = LinearLayoutManager(this)
+        mRecyclerView.layoutManager = layoutManager
     }
 
     override fun onResume() {

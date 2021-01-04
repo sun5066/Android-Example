@@ -11,8 +11,8 @@
     <EditText
         android:id="@+id/txt_ip"
         android:layout_width="300dp"
-        android:text="125.136.6.85"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="192.168.0.5" />
 
     <Button
         android:id="@+id/btn_server_conn"
