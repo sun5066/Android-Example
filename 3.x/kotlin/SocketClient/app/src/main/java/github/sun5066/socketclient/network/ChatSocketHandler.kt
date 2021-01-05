@@ -1,20 +1,19 @@
 package github.sun5066.socketclient.network
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParseException
 import com.google.gson.reflect.TypeToken
-import github.sun5066.socketclient.TAG
 import github.sun5066.socketclient.model.ChatData
 import java.io.OutputStream
 import java.net.Socket
 import java.nio.charset.Charset
 import java.util.*
 
-class ChatSocketHandler(private val _ip: String, private val _port: Int) {
+class ChatSocketHandler {
     /**********************************************************************************************/
+    private val TAG = this.javaClass.simpleName
+
     private lateinit var mSocket: Socket
     private lateinit var mReader: Scanner
     private lateinit var mWriter: OutputStream
@@ -24,11 +23,25 @@ class ChatSocketHandler(private val _ip: String, private val _port: Int) {
         TypeToken<MutableList<ChatData>>() {}
 
     private val gson = GsonBuilder().create()
-    private lateinit var chatList: MutableList<ChatData>
-    private lateinit var chatData: LiveData<MutableList<ChatData>>
+    val gChatList: MutableList<ChatData> = mutableListOf()
+//    private val mChatList: MutableLiveData<MutableList<ChatData>> = MutableLiveData()
+
+//    init {
+//        mChatList.value = mutableListOf()
+//    }
+
+    companion object {
+        private var instance: ChatSocketHandler? = null
+
+        @JvmStatic
+        fun getInstance() = instance ?: synchronized(this) {
+            instance ?: ChatSocketHandler().also { instance = it }
+        }
+    }
+
     /**********************************************************************************************/
 
-    fun run() {
+    fun run(_ip: String, _port: Int) {
         mSocket = Socket(_ip, _port)
         mReader = Scanner(mSocket.getInputStream())
         mWriter = mSocket.getOutputStream()
@@ -38,19 +51,16 @@ class ChatSocketHandler(private val _ip: String, private val _port: Int) {
     fun read() {
         while (mIsConnected) {
             try {
-                chatList = gson.fromJson<MutableList<ChatData>>(
-                    mReader.nextLine().toString(),
-                    listType.type
-                )
-                val chatData: LiveData<MutableList<ChatData>>
-                chatData = MutableLiveData<MutableList<ChatData>>()
-                chatData.value = chatList
-                this.chatData = chatData
-                Log.d(TAG, "${chatList.toString()}")
+//                mChatList.value?.clear()
+//                mChatList.value?.addAll(gson.fromJson(mReader.nextLine().toString(), listType.type))
+
+                gChatList.clear()
+                gChatList.addAll(gson.fromJson(mReader.nextLine().toString(), listType.type))
+                Log.d(TAG, "gChatList - ${gChatList.toString()}")
             } catch (ex: JsonParseException) {
                 Log.d(TAG, "Json 변환 예외 발생!")
             } finally {
-                Log.d(TAG, mReader.nextLine())
+                Log.d(TAG, "finally - ${mReader.nextLine().toString()}")
             }
         }
     }
@@ -68,8 +78,7 @@ class ChatSocketHandler(private val _ip: String, private val _port: Int) {
         }
     }
 
-    fun getList(): LiveData<MutableList<ChatData>> {
-        Log.d("TAGAAAA", chatData.toString())
-        return chatData
+    fun getList(): MutableList<ChatData> {
+        return gChatList
     }
 }
