@@ -20,12 +20,13 @@ import github.sun5066.socketclient.model.ChatData
 import github.sun5066.socketclient.network.ChatSocketHandler
 import kotlin.concurrent.thread
 
-class ClientActivity : AppCompatActivity(), View.OnClickListener, LifecycleOwner {
+class ClientActivity : AppCompatActivity(), View.OnClickListener {
     /****************************************************************/
     private val TAG = this.javaClass.simpleName
 
     private lateinit var mTxtSend: EditText
-    private val mChatSocketHandler = ChatSocketHandler.getInstance()
+
+    //    private val mChatSocketHandler = ChatSocketHandler.getInstance()
     private lateinit var mChatRecyclerAdapter: ChatRecyclerAdapter
     private lateinit var mChatViewModel: ChatViewModel
     private lateinit var mRecyclerView: RecyclerView
@@ -43,16 +44,20 @@ class ClientActivity : AppCompatActivity(), View.OnClickListener, LifecycleOwner
         // 서버 연결
         val address = intent.getStringExtra("ip")
         address?.let {
-            mChatSocketHandler.run(address, 1004)
+            mChatViewModel =
+                ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application))
+                    .get(ChatViewModel::class.java)
+
+            mChatViewModel.run(address, 1004)
         }
 
         try {
-            thread { mChatSocketHandler.read() }
+            thread { mChatViewModel.read() }
         } catch (e: Exception) {
-            Toast.makeText(this, "에러발생", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "예외발생", Toast.LENGTH_SHORT).show()
             Log.d(TAG, "${e.message}")
 
-            mChatSocketHandler.close()
+            mChatViewModel.close()
         }
 
         mTxtSend = findViewById(R.id.txt_send)
@@ -61,14 +66,11 @@ class ClientActivity : AppCompatActivity(), View.OnClickListener, LifecycleOwner
 
         val chatList = mutableListOf<ChatData>()
         mChatRecyclerAdapter = ChatRecyclerAdapter(chatList)
-        mChatViewModel =
-            ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application))
-                .get(ChatViewModel::class.java)
 
         mChatViewModel.getModel().observe(this, {
             mChatRecyclerAdapter = ChatRecyclerAdapter(it)
             val layoutManager = LinearLayoutManager(this)
-            Log.d(TAG, "얘 값 바뀜!! ${it.toString()}")
+            Log.d(TAG, "Observable - $it")
 
             mRecyclerView.layoutManager = layoutManager
             mRecyclerView.adapter = mChatRecyclerAdapter
@@ -77,13 +79,13 @@ class ClientActivity : AppCompatActivity(), View.OnClickListener, LifecycleOwner
 
     override fun onDestroy() {
         Log.d(TAG, "onDestroy")
-        mChatSocketHandler.close()
+        mChatViewModel.close()
         super.onDestroy()
     }
 
     override fun onClick(v: View?) {
         val msg = mTxtSend.text.toString()
-        mChatSocketHandler.sendMessage(msg)
+        mChatViewModel.sendMessage(msg)
         mTxtSend.text = null
     }
 }

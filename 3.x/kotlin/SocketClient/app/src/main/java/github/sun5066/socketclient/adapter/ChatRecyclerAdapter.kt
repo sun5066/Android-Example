@@ -3,7 +3,9 @@ package github.sun5066.socketclient.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import github.sun5066.socketclient.R
 import github.sun5066.socketclient.model.ChatData
@@ -23,9 +25,15 @@ class ChatRecyclerAdapter(private var chatList: MutableList<ChatData>) :
     }
 
     override fun onBindViewHolder(holder: ChatHolder, position: Int) {
-        if (chatList[position].isMe!!) {
+        if (chatList[position].isClient!!) {
+            holder.layoutTarget.visibility = View.GONE
+            holder.layoutMe.visibility = View.VISIBLE
+
             holder.textMeMessage.text = chatList[position].message
         } else {
+            holder.layoutTarget.visibility = View.VISIBLE
+            holder.layoutMe.visibility = View.GONE
+
             holder.textTargetName.text = chatList[position].name
             holder.textTargetMessage.text = chatList[position].message
         }
@@ -37,5 +45,7 @@ class ChatRecyclerAdapter(private var chatList: MutableList<ChatData>) :
         var textMeMessage: TextView = itemView.findViewById(R.id.txt_me_message)
         var textTargetName: TextView = itemView.findViewById(R.id.txt_target_name)
         var textTargetMessage: TextView = itemView.findViewById(R.id.txt_target_message)
+        var layoutTarget: LinearLayout = itemView.findViewById(R.id.layout_target)
+        var layoutMe: LinearLayout = itemView.findViewById(R.id.layout_me)
     }
 }

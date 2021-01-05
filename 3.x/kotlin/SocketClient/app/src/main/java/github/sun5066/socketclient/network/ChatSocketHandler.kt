@@ -50,18 +50,14 @@ class ChatSocketHandler {
 
     fun read() {
         while (mIsConnected) {
-            try {
-//                mChatList.value?.clear()
-//                mChatList.value?.addAll(gson.fromJson(mReader.nextLine().toString(), listType.type))
+            val tempList: MutableList<ChatData> = gson.fromJson(
+                mReader.nextLine().toString(),
+                listType.type
+            )
 
-                gChatList.clear()
-                gChatList.addAll(gson.fromJson(mReader.nextLine().toString(), listType.type))
-                Log.d(TAG, "gChatList - ${gChatList.toString()}")
-            } catch (ex: JsonParseException) {
-                Log.d(TAG, "Json 변환 예외 발생!")
-            } finally {
-                Log.d(TAG, "finally - ${mReader.nextLine().toString()}")
-            }
+            gChatList.clear()
+            gChatList.addAll(tempList)
+            Log.d(TAG, "gChatList - ${gChatList.toString()}")
         }
     }
 

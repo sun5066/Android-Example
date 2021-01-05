@@ -4,5 +4,5 @@ data class ChatData(
     val id: Int? = 0,
     var name: String? = "",
     var message: String? = "",
-    var isMe: Boolean? = false
+    var isClient: Boolean? = false
 )
